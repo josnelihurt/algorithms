@@ -18,6 +18,13 @@ RUN echo 'root:root' | chpasswd \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
+# it was commented due to I have found a better solution for including google-test 
+# WORKDIR /opt
+# RUN git clone --recursive --branch release-1.10.0 https://github.com/google/googletest.git
+# WORKDIR /opt/googletest
+# RUN cmake . && make -j4 && make install
+
+
 RUN mkdir -p /source
 WORKDIR /source
 
