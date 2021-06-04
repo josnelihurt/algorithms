@@ -28,6 +28,6 @@ RUN echo 'root:root' | chpasswd \
 RUN mkdir -p /source
 WORKDIR /source
 
-CMD ["/usr/sbin/sshd", "-D"]
+ENTRYPOINT ["/usr/sbin/sshd", "-D"]
 
 EXPOSE 22

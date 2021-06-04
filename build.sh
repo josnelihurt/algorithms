@@ -1,3 +1,4 @@
+#! /bin/bash
 mkdir -p /source/build && \
 cd /source/build && \
 cmake ../ -DCMAKE_BUILD_TYPE=Debug && \
