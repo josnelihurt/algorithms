@@ -128,7 +128,7 @@ TEST(AVLNode, getHeightNodeTree) {
   auto root = insert(nullptr, 2);
   root = insert(root, 1);
   auto ht = getHeight(root);
-  /* Should look like
+  /* Should looks like
           2
         │  
       1 │  0
@@ -139,7 +139,7 @@ TEST(AVLNode, getHeightNodeTree) {
 
   root = insert(root, 3);
   ht = getHeight(root);
-  /* Should look like
+  /* Should looks like
          2
        │  │
      1 │  │ 1
@@ -150,7 +150,7 @@ TEST(AVLNode, getHeightNodeTree) {
 
   root = insert(root, 4);
   ht = getHeight(root);
-  /* Should look like
+  /* Should looks like
          2
        │  │
      1 │  │ 2
@@ -163,7 +163,7 @@ TEST(AVLNode, getHeightNodeTree) {
 
   root = insert(root, 5);
   ht = getHeight(root);
-  /* Should look like
+  /* Should looks like
          2
        │  │
      1 │  │ 3
@@ -183,7 +183,7 @@ TEST(AVLNode, getHeightNodeTree) {
   deleteNode(root);
 }
 
-TEST(AVLNode, rotateRight) {
+TEST(AVLNode, RRRotate) {
   auto value = getValue();
   auto x = newNode(100);
   auto y = newNode(10);
@@ -191,7 +191,7 @@ TEST(AVLNode, rotateRight) {
   x->left = y;
   x->left->left = z;
 
-  /* Should look like
+  /* Should looks like
                 x
               │  
         y  ◄──┘  
@@ -199,17 +199,119 @@ TEST(AVLNode, rotateRight) {
   z  ◄──┘  
   */
 
-  auto root = rotateRight(x);
-  /* Should look like
-          y
-        │  │
-  z  ◄──┘  └──►  x
+  auto root = RRRotate(x);
+  /* Should looks like
+         y
+        ││
+  z  ◄──┘└──►  x
   */
   EXPECT_NE(root, nullptr);
   EXPECT_NE(root->left, nullptr);
   EXPECT_NE(root->right, nullptr);
   EXPECT_EQ(root->left->left, nullptr);
   EXPECT_EQ(root->left->right, nullptr);
+  EXPECT_EQ(root->right->left, nullptr);
+  EXPECT_EQ(root->right->right, nullptr);
+  EXPECT_EQ(root->ht, 1);
+  EXPECT_EQ(root->left->ht, 0);
+  EXPECT_EQ(root->right->ht, 0);
+}
+
+TEST(AVLNode, LLRotate) {
+  auto value = getValue();
+  auto x = newNode(1);
+  auto y = newNode(10);
+  auto z = newNode(100);
+  x->right = y;
+  x->right->right = z;
+
+  /* Should looks like
+      x
+      └──► y
+          |│
+     yl◄──┘└──► z
+
+         y
+        ││
+  x  ◄──┘└──►  z
+  |  
+  └──►  yl
+  */
+  auto root = LLRotate(x);
+
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+  
+  EXPECT_EQ(root->left->left, nullptr);
+  EXPECT_EQ(root->left->right, nullptr);
+  EXPECT_EQ(root->right->left, nullptr);
+  EXPECT_EQ(root->right->right, nullptr);
+  EXPECT_EQ(root->ht, 1);
+  EXPECT_EQ(root->left->ht, 0);
+  EXPECT_EQ(root->right->ht, 0);
+}
+
+TEST(AVLNode, RLRotate) {
+  auto value = getValue();
+  auto x = newNode(10);
+  auto y = newNode(1);
+  auto z = newNode(5);
+  x->left = y;
+  x->left->right = z;
+
+  /* Should looks like
+              x
+              │  
+        y  ◄──┘  
+        |  
+        └──►  z
+
+             z
+             ││
+        y ◄──┘└──►  x
+  */
+  auto root = RLRotate(x);
+
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+  
+  EXPECT_EQ(root->left->left, nullptr);
+  EXPECT_EQ(root->right->right, nullptr);
+  EXPECT_EQ(root->right->left, nullptr);
+  EXPECT_EQ(root->right->right, nullptr);
+  EXPECT_EQ(root->ht, 1);
+  EXPECT_EQ(root->left->ht, 0);
+  EXPECT_EQ(root->right->ht, 0);
+}
+
+TEST(AVLNode, LRRotate) {
+  auto value = getValue();
+  auto x = newNode(1);
+  auto y = newNode(10);
+  auto z = newNode(5);
+  x->right = y;
+  x->right->left = z;
+
+  /* Should looks like
+      x  
+      └──► y
+           |  
+       z◄──┘  
+
+             z
+             ││
+        x ◄──┘└──► y
+  */
+  auto root = LRRotate(x);
+
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+  
+  EXPECT_EQ(root->left->left, nullptr);
+  EXPECT_EQ(root->right->right, nullptr);
   EXPECT_EQ(root->right->left, nullptr);
   EXPECT_EQ(root->right->right, nullptr);
   EXPECT_EQ(root->ht, 1);
