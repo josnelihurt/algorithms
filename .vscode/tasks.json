@@ -12,7 +12,7 @@
               "root@localhost",
               "-p",
               "2222",
-              "/source/build.sh"
+              "/source/scripts/build.sh"
           ],
           "problemMatcher": [
               "$gcc"
