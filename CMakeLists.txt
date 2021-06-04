@@ -27,5 +27,6 @@ gtest_discover_tests(testbin)
 
 add_executable(app ${SRC_MAIN} ${SRC})
 
-add_custom_command(TARGET testbin POST_BUILD
-    COMMAND ./testbin)
+# add_custom_command(TARGET testbin POST_BUILD COMMAND ./testbin)
+# add_executable(UnitTest unittest.cpp)
+add_custom_target(runUnitTest testbin COMMAND $<TARGET_FILE:testbin> DEPENDS testbin)

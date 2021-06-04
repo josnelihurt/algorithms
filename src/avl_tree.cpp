@@ -17,7 +17,12 @@ int getHeight(node *root){
     if(root == nullptr){
         return 0;
     }
-    return 1 + max(getHeight(root->left), getHeight(root->right));
+    if(root->left == nullptr && root->right == nullptr){
+        return 0;
+    }
+    auto lht = getHeight(root->left);
+    auto rht = getHeight(root->right);
+    return 1 + max(lht, rht);
 }
 
 node* insert(node* root, int val){

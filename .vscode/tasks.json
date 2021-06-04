@@ -21,6 +21,41 @@
               "kind": "build",
               "isDefault": true
           }
-      }
+      },
+        {
+            "label": "run tests",
+            "type": "shell",
+            "command": "/usr/bin/sshpass",
+            "args": [
+                "-p",
+                "root",
+                "ssh",
+                "root@localhost",
+                "-p",
+                "2222",
+                "/source/scripts/build.sh",
+                "runUnitTest"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "prepare docker",
+            "type": "shell",
+            "command": "./scripts/prepare-docker.sh",
+            "args": [],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
   ]
 }

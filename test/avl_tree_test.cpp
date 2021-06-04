@@ -91,21 +91,27 @@ TEST(AVLNode, getHeightNullTree) {
 TEST(AVLNode, getHeightSingleNodeTree) {
   auto root = insert(nullptr, 1);
   auto ht = getHeight(root);
-  EXPECT_EQ(ht, 1);
+  EXPECT_EQ(ht, 0);
   delete root;
 }
 
 TEST(AVLNode, getHeight1NodeTree) {
-  return;
+  /*
+         2
+       │  │
+     1 │  │ 1
+ 1  ◄──┘  └──►  3
+ 0              0
+*/
   auto value = getValue();
-  auto root = insert(nullptr, 111);
-  root = insert(root, 222);
+  auto root = insert(nullptr, 2);
+  root = insert(root, 1);
   auto ht = getHeight(root);
-  EXPECT_EQ(ht, 2);
+  EXPECT_EQ(ht, 1);
 
-  root = insert(root, 333);
+  root = insert(root, 3);
   ht = getHeight(root);
-  EXPECT_EQ(ht, 2);
+  EXPECT_EQ(ht, 1);
 
   EXPECT_NE(root->left, nullptr);
   EXPECT_NE(root->right, nullptr);
