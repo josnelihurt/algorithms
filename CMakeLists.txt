@@ -12,8 +12,11 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-set(SRC src/main.cpp)
-set(TEST_SRC test/example.cpp)
+set(SRC src/main.cpp
+        src/avl_tree.cpp)
+set(TEST_SRC test/avl_tree_test.cpp)
+
+include_directories(${CMAKE_SOURCE_DIR}/src)
 enable_testing()
 
 add_executable(testbin ${TEST_SRC})
