@@ -11,21 +11,21 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-
-set(SRC src/main.cpp
-        src/avl_tree.cpp)
-set(TEST_SRC test/avl_tree_test.cpp)
+set(SRC_MAIN src/main.cpp)
+set(SRC   src/avl_tree.cpp)
+set(TEST_SRC ${SCR}
+  test/avl_tree_test.cpp)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 enable_testing()
 
-add_executable(testbin ${TEST_SRC})
+add_executable(testbin ${TEST_SRC} ${SRC})
 target_link_libraries(testbin gtest_main)
 include(GoogleTest)
 gtest_discover_tests(testbin)
 
 
-add_executable(app ${SRC})
+add_executable(app ${SRC_MAIN} ${SRC})
 
 add_custom_command(TARGET testbin POST_BUILD
     COMMAND ./testbin)
