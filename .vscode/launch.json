@@ -1,31 +1,57 @@
 {
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [    
       {
-          "name": "(gdb) Launch",
-          "type": "cppdbg",
-          "request": "launch",
-          "program": "build/testbin",
-          "args": [],
-          "stopAtEntry": true,
-          "cwd": "/source",
-          "environment": [],
-          "externalConsole": true,  
-          "sourceFileMap": { "/source": "${workspaceFolder}" },                       
-          "pipeTransport": {
-              "debuggerPath": "/usr/bin/gdb",
-              "pipeProgram": "/usr/bin/sshpass",
-              "pipeArgs": [
-                  "-p",
-                  "root",
-                  "ssh",
-                  "root@localhost",
-                  "-p",
-                  "2222"
-              ],
-              "pipeCwd": ""
-          },           
-          "MIMode": "gdb"         
-      }
+        "name": "(gdb) Launch APP",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "build/app",
+        "args": [],
+        "stopAtEntry": true,
+        "cwd": "/source",
+        "environment": [],
+        "externalConsole": true,  
+        "sourceFileMap": { "/source": "${workspaceFolder}" },                       
+        "pipeTransport": {
+            "debuggerPath": "/usr/bin/gdb",
+            "pipeProgram": "/usr/bin/sshpass",
+            "pipeArgs": [
+                "-p",
+                "root",
+                "ssh",
+                "root@localhost",
+                "-p",
+                "2222"
+            ],
+            "pipeCwd": ""
+        },           
+        "MIMode": "gdb"         
+    },
+    {
+        "name": "(gdb) Launch Tests",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "build/testbin",
+        "args": [],
+        "stopAtEntry": true,
+        "cwd": "/source",
+        "environment": [],
+        "externalConsole": true,  
+        "sourceFileMap": { "/source": "${workspaceFolder}" },                       
+        "pipeTransport": {
+            "debuggerPath": "/usr/bin/gdb",
+            "pipeProgram": "/usr/bin/sshpass",
+            "pipeArgs": [
+                "-p",
+                "root",
+                "ssh",
+                "root@localhost",
+                "-p",
+                "2222"
+            ],
+            "pipeCwd": ""
+        },           
+        "MIMode": "gdb"         
+    }
   ]
 }

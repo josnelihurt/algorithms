@@ -1,2 +1,3 @@
 #! /bin/bash
-/source/scripts/build.sh && /source/build/testbin
+DIRECTORY=`dirname $0`
+$DIRECTORY/build.sh && /source/build/testbin

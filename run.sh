@@ -1,5 +1,5 @@
 #! /bin/bash
-docker stop gdb-cpp-image
-docker rm gdb-cpp-image
-docker build -t gdb-cpp-image docker-build/
+DIRECTORY="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+$DIRECTORY/scripts/stop-docker.sh
+docker build -t gdb-cpp-image $DIRECTORY/docker-build
 docker run -v $PWD:/source --rm --name tmp -it --entrypoint /source/scripts/build-run.sh gdb-cpp-image
