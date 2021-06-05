@@ -263,21 +263,23 @@ TEST(AVLNode, RLRotate) {
 
   auto value = getValue();
   auto x = newNode(10);
+  auto xr = newNode(11);
   auto y = newNode(1);
+  auto yl = newNode(0);
   auto z = newNode(5);
   x->left = y;
-  x->left->right = z;
+  x->right = xr;
+  y->left = yl;
+  y->right = z;
 
   /* Should looks like
-              x
-              │  
-        y  ◄──┘  
-        |  
-        └──►  z
+                  x
+          y  ◄───┘└──►xr
+   yl◄───┘└──►z
 
-             z
-             ││
-        y ◄──┘└──►  x
+                 z
+            y ◄──┘└──► x
+      yl◄───┘          └──►xr
   */
   auto root = RLRotate(x);
 
@@ -285,13 +287,20 @@ TEST(AVLNode, RLRotate) {
   EXPECT_NE(root->left, nullptr);
   EXPECT_NE(root->right, nullptr);
   
-  EXPECT_EQ(root->left->left, nullptr);
-  EXPECT_EQ(root->right->right, nullptr);
+  EXPECT_EQ(root, z);
+  EXPECT_EQ(root->right, x);
+  EXPECT_EQ(root->right->right, xr);
+  EXPECT_EQ(root->left, y);
+  EXPECT_EQ(root->left->left, yl);
+  
+  EXPECT_EQ(root->left->right, nullptr);
   EXPECT_EQ(root->right->left, nullptr);
-  EXPECT_EQ(root->right->right, nullptr);
-  EXPECT_EQ(root->ht, 1);
-  EXPECT_EQ(root->left->ht, 0);
-  EXPECT_EQ(root->right->ht, 0);
+  
+  EXPECT_EQ(root->ht, 2);
+  EXPECT_EQ(y->ht, 1);
+  EXPECT_EQ(x->ht, 1);
+  EXPECT_EQ(yl->ht, 0);
+  EXPECT_EQ(xr->ht, 0);
 
   deleteNode(root);
 }
@@ -302,20 +311,23 @@ TEST(AVLNode, LRRotate) {
 
   auto value = getValue();
   auto x = newNode(1);
+  auto xl = newNode(0);
   auto y = newNode(10);
+  auto yr = newNode(11);
   auto z = newNode(5);
   x->right = y;
-  x->right->left = z;
+  x->left = xl;
+  y->right = yr;
+  y->left = z;
 
   /* Should looks like
-      x  
-      └──► y
-           |  
-       z◄──┘  
+       x  
+xl ◄──┘└──► y  
+       z◄──┘└──► yr
 
              z
-             ││
         x ◄──┘└──► y
+  xl ◄──┘          └──► yr
   */
   auto root = LRRotate(x);
 
@@ -323,13 +335,19 @@ TEST(AVLNode, LRRotate) {
   EXPECT_NE(root->left, nullptr);
   EXPECT_NE(root->right, nullptr);
   
-  EXPECT_EQ(root->left->left, nullptr);
-  EXPECT_EQ(root->right->right, nullptr);
+  EXPECT_EQ(root, z);
+  EXPECT_EQ(root->right, y);
+  EXPECT_EQ(root->left, x);
+  EXPECT_EQ(root->right->right, yr);
   EXPECT_EQ(root->right->left, nullptr);
-  EXPECT_EQ(root->right->right, nullptr);
-  EXPECT_EQ(root->ht, 1);
-  EXPECT_EQ(root->left->ht, 0);
-  EXPECT_EQ(root->right->ht, 0);
+  EXPECT_EQ(root->left->right, nullptr);
+  EXPECT_EQ(root->left->left, xl);
+
+  EXPECT_EQ(root->ht, 2);
+  EXPECT_EQ(x->ht, 1);
+  EXPECT_EQ(y->ht, 1);
+  EXPECT_EQ(xl->ht, 0);
+  EXPECT_EQ(yr->ht, 0);
 
   deleteNode(root);
 }

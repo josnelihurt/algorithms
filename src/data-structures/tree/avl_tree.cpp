@@ -1,5 +1,7 @@
 #include "data-structures/tree/avl_tree.h"
-
+/*
+https://www.hackerrank.com/challenges/self-balancing-tree/problem
+*/
 int max(int l, int r){
     return (l >= r) ? l : r;
 }
@@ -87,19 +89,6 @@ node* RRRotate(node* root){
   if(root == nullptr){
     return root;
   }  
-  /* Should looks like
-                x
-              |  
-        y  <--/  
-        ||  
-  z  <--/\-->  yr
-
-        y
-        ||
-  z  <--/\-->  x
-               |
-          yr<--/
-  */
   auto x = root;
   auto y = x->left;
   auto yr = y->right;
@@ -115,18 +104,6 @@ node* RLRotate(node* root){
   if(root == nullptr){
     return root;
   }  
-  /* Should looks like
-              x
-              |  
-        y  <--/  
-        |  
-        \-->  z
-
-             z
-             ||
-        y <--/\-->  x
-
-  */
   auto x = root;
   auto y = root->left;
   auto z = root->left->right;
@@ -145,18 +122,6 @@ node* LLRotate(node* root){
   if(root == nullptr){
     return root;
   }  
-  /* Should looks like
-      x
-      \--> y
-          ||
-     yl<--/\--> z
-
-         y
-        ||
-  x  <--/\-->  z
-  |  
-  \-->  yl
-  */
   auto x = root;
   auto y = root->right;
   auto yl = y->left;
@@ -173,16 +138,6 @@ node* LRRotate(node* root){
   if(root == nullptr){
     return root;
   }  
-  /* Should looks like
-      x  
-      \--> y
-           |  
-       z<--/  
-
-             z
-             ||
-        x <--/\--> y
-  */
   auto x = root;
   auto y = x->right;
   auto z = y->left;
@@ -195,5 +150,6 @@ node* LRRotate(node* root){
 
   root->ht = getHeight(root);
   x->ht = getHeight(x);
+  y->ht = getHeight(y);
   return root;
 }
