@@ -170,35 +170,45 @@ TEST(AVLNode, RRRotate) {
 
   auto value = getValue();
   auto x = newNode(100);
+  auto xr = newNode(101);
   auto y = newNode(10);
+  auto yr = newNode(11);
   auto z = newNode(1);
   x->left = y;
-  x->left->left = z;
+  x->right = xr;
+  y->left = z;
+  y->right = yr;
 
   /* Should looks like
-                x
-              │  
-        y  ◄──┘  
-        │  
-  z  ◄──┘  
+              x 
+        y ◄──┘└──►xr
+   z◄──┘└──►yr  
   */
 
   auto root = RRRotate(x);
   /* Should looks like
-         y
-        ││
-  z  ◄──┘└──►  x
+             y
+      z  ◄──┘└──► x
+             yr◄──┘└──►xr
+
+
   */
   EXPECT_NE(root, nullptr);
   EXPECT_NE(root->left, nullptr);
   EXPECT_NE(root->right, nullptr);
-  EXPECT_EQ(root->left->left, nullptr);
-  EXPECT_EQ(root->left->right, nullptr);
-  EXPECT_EQ(root->right->left, nullptr);
-  EXPECT_EQ(root->right->right, nullptr);
-  EXPECT_EQ(root->ht, 1);
-  EXPECT_EQ(root->left->ht, 0);
-  EXPECT_EQ(root->right->ht, 0);
+
+  EXPECT_EQ(root, y);
+  EXPECT_EQ(root->left, z);
+  EXPECT_EQ(root->right, x);
+  EXPECT_EQ(root->right->right, xr);
+  EXPECT_EQ(root->right->left, yr);
+
+  EXPECT_EQ(root->ht, 2);
+  EXPECT_EQ(z->ht, 0);
+  EXPECT_EQ(x->ht, 1);
+  EXPECT_EQ(yr->ht, 0);
+  EXPECT_EQ(xr->ht, 0);
+
   deleteNode(root);
 }
 
@@ -398,6 +408,74 @@ TEST(AVLNode, insert7to1) {
   EXPECT_EQ(root->left->right->val, 3);
   EXPECT_EQ(root->right->left->val, 5);
   EXPECT_EQ(root->right->right->val, 7);
+
+  deleteNode(root);
+}
+
+TEST(AVLNode, insertLRRotate) {
+  /* Should looks like
+        4
+      2  
+       3 
+  */
+  auto root = newNode(4);
+  root = insert(root, 2);
+  root = insert(root, 3);
+  
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+
+  EXPECT_EQ(root->val, 3);
+  EXPECT_EQ(root->left->val, 2);
+  EXPECT_EQ(root->right->val, 4);
+  
+  deleteNode(root);
+}
+
+TEST(AVLNode, insertRLRotate) {
+  /* Should looks like
+        4
+          6
+         5 
+  */
+  auto root = newNode(4);
+  root = insert(root, 6);
+  root = insert(root, 5);
+  
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+
+  EXPECT_EQ(root->val, 5);
+  EXPECT_EQ(root->left->val, 4);
+  EXPECT_EQ(root->right->val, 6);
+  
+  deleteNode(root);
+}
+
+TEST(AVLNode, insertRLRotateLR) {
+  /* Should looks like
+        4
+          6
+         5 
+  */
+  auto root = newNode(4);
+  root = insert(root, 6);
+  root = insert(root, 5);
+  
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+
+  EXPECT_EQ(root->val, 5);
+  EXPECT_EQ(root->left->val, 4);
+  EXPECT_EQ(root->right->val, 6);
+  
+  /*
+      5
+    4   6
+  */
 
   deleteNode(root);
 }

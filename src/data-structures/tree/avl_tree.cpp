@@ -68,20 +68,20 @@ node* insert(node* root, int val){
 
     //check if a rotation is needed
     if(bf == -2 && getBalanceFactor(root->right) == -1){
+      //pull from left side
       return LLRotate(root);
     } else if(bf == 2 && getBalanceFactor(root->left) == 1){
+      //pull from right side
       return RRRotate(root);
-    }
-    //   return RLRotate(root);
-    // } else if(bf == -2 && getBalanceFactor(root->right) == -1){
-    //   return LLRotate(root);
-    // } else if(bf == -2 && getBalanceFactor(root->right) == 1){
-    //   return LRRotate(root);
-    // } 
+    } if(bf == -2 && getBalanceFactor(root->right) == 1){
+      return LRRotate(root);
+    } if(bf == 2 && getBalanceFactor(root->left) == -1){
+      return RLRotate(root);
+    } 
 
     //the node is balanced
     return root;
-}
+} 
 
 node* RRRotate(node* root){
   if(root == nullptr){
@@ -89,16 +89,16 @@ node* RRRotate(node* root){
   }  
   /* Should looks like
                 x
-              │  
-        y  ◄──┘  
-        │|  
-  z  ◄──┘└──►  yr
+              |  
+        y  <--/  
+        ||  
+  z  <--/\-->  yr
 
         y
-        ││
-  z  ◄──┘└──►  x
-               │
-          yr◄──┘
+        ||
+  z  <--/\-->  x
+               |
+          yr<--/
   */
   auto x = root;
   auto y = x->left;
@@ -107,10 +107,9 @@ node* RRRotate(node* root){
   root->right = x;
   x->left = yr;
   root->ht = getHeight(root);
+  x->ht = getHeight(x);
   return root;
 }
-
-
 
 node* RLRotate(node* root){
   if(root == nullptr){
@@ -118,14 +117,14 @@ node* RLRotate(node* root){
   }  
   /* Should looks like
               x
-              │  
-        y  ◄──┘  
+              |  
+        y  <--/  
         |  
-        └──►  z
+        \-->  z
 
              z
-             ││
-        y ◄──┘└──►  x
+             ||
+        y <--/\-->  x
 
   */
   auto x = root;
@@ -137,6 +136,8 @@ node* RLRotate(node* root){
   root->left = y;
   y->right = nullptr;
   root->ht = getHeight(root);
+  y->ht = getHeight(y);
+  x->ht = getHeight(x);
   return root;
 }
 
@@ -146,15 +147,15 @@ node* LLRotate(node* root){
   }  
   /* Should looks like
       x
-      └──► y
-          |│
-     yl◄──┘└──► z
+      \--> y
+          ||
+     yl<--/\--> z
 
          y
-        ││
-  x  ◄──┘└──►  z
+        ||
+  x  <--/\-->  z
   |  
-  └──►  yl
+  \-->  yl
   */
   auto x = root;
   auto y = root->right;
@@ -174,13 +175,13 @@ node* LRRotate(node* root){
   }  
   /* Should looks like
       x  
-      └──► y
+      \--> y
            |  
-       z◄──┘  
+       z<--/  
 
              z
-             ││
-        x ◄──┘└──► y
+             ||
+        x <--/\--> y
   */
   auto x = root;
   auto y = x->right;
@@ -193,5 +194,6 @@ node* LRRotate(node* root){
   y->left = nullptr;
 
   root->ht = getHeight(root);
+  x->ht = getHeight(x);
   return root;
 }
