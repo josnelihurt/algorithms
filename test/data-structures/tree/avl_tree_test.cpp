@@ -218,22 +218,23 @@ TEST(AVLNode, LLRotate) {
 
   auto value = getValue();
   auto x = newNode(1);
+  auto xl = newNode(0);
   auto y = newNode(10);
+  auto yl = newNode(9);
   auto z = newNode(100);
   x->right = y;
-  x->right->right = z;
+  x->left = xl;
+  y->left = yl;
+  y->right = z;
 
   /* Should looks like
       x
-      └──► y
-          |│
+ xl◄──┘└──► y
      yl◄──┘└──► z
 
-         y
-        ││
-  x  ◄──┘└──►  z
-  |  
-  └──►  yl
+              y
+        x  ◄──┘└──►z
+   xl◄──┘└──► yl
   */
   auto root = LLRotate(x);
 
@@ -241,13 +242,17 @@ TEST(AVLNode, LLRotate) {
   EXPECT_NE(root->left, nullptr);
   EXPECT_NE(root->right, nullptr);
   
-  EXPECT_EQ(root->left->left, nullptr);
-  EXPECT_EQ(root->left->right, nullptr);
-  EXPECT_EQ(root->right->left, nullptr);
-  EXPECT_EQ(root->right->right, nullptr);
-  EXPECT_EQ(root->ht, 1);
-  EXPECT_EQ(root->left->ht, 0);
-  EXPECT_EQ(root->right->ht, 0);
+  EXPECT_EQ(root, y);
+  EXPECT_EQ(root->left, x);
+  EXPECT_EQ(root->right, z);
+  EXPECT_EQ(root->left->left, xl);
+  EXPECT_EQ(root->left->right, yl);
+
+  EXPECT_EQ(root->ht, 2);
+  EXPECT_EQ(z->ht, 0);
+  EXPECT_EQ(x->ht, 1);
+  EXPECT_EQ(xl->ht, 0);
+  EXPECT_EQ(yl->ht, 0);
 
   deleteNode(root);
 }
