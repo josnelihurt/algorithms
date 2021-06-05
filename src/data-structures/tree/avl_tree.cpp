@@ -40,6 +40,9 @@ int getHeight(node *root){
 }
 
 int getBalanceFactor(node* root){
+  if(root == nullptr){
+    return 0;
+  }  
   auto lht = getHeight(root->left);
   auto rht = getHeight(root->right);
   return lht - rht;
@@ -61,7 +64,21 @@ node* insert(node* root, int val){
     }
     //update height
     root->ht = getHeight(root);
+    auto bf = getBalanceFactor(root);
 
+    //check if a rotation is needed
+    if(bf == -2 && getBalanceFactor(root->right) == -1){
+      return LLRotate(root);
+    }
+    // } else if(bf == 2 && getBalanceFactor(root->left) == -1){
+    //   return RLRotate(root);
+    // } else if(bf == -2 && getBalanceFactor(root->right) == -1){
+    //   return LLRotate(root);
+    // } else if(bf == -2 && getBalanceFactor(root->right) == 1){
+    //   return LRRotate(root);
+    // } 
+
+    //the node is balanced
     return root;
 }
 
@@ -145,6 +162,7 @@ node* LLRotate(node* root){
   root->left = x;
   x->right = yl;
   root->ht = getHeight(root);
+  x->ht = getHeight(x);
   return root;
 }
 

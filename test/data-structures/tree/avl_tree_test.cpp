@@ -160,25 +160,6 @@ TEST(AVLNode, getHeightNodeTree) {
                   └──► 4
   */
   EXPECT_EQ(ht, 2);
-
-  root = insert(root, 5);
-  ht = getHeight(root);
-  /* Should looks like
-         2
-       │  │
-     1 │  │ 3
- 1  ◄──┘  └──►  3
- 0                │
-               0  │2
-                  └──► 4
-                          │
-                      0   │1
-                          └──► 5
-  */
-  EXPECT_EQ(ht, 3);
-  EXPECT_NE(root->left, nullptr);
-  EXPECT_NE(root->right, nullptr);
-  EXPECT_NE(root->right->right, nullptr);
   
   deleteNode(root);
 }
@@ -342,9 +323,11 @@ TEST(AVLNode, getBalanceFactor) {
   auto root = insert(nullptr, 2);
   auto bf = getBalanceFactor(root);
   EXPECT_EQ(bf, 0);
+  
   root = insert(root, 1);
   bf = getBalanceFactor(root);
   EXPECT_EQ(bf, 1);
+
   root = insert(root, 3);
   bf = getBalanceFactor(root);
   EXPECT_EQ(bf, 0);
@@ -354,25 +337,25 @@ TEST(AVLNode, getBalanceFactor) {
   EXPECT_EQ(bf, -1);
 }
 
-// TEST(AVLNode, insert1to7) {
-//   /* Should looks like
-//         4
-//       2   6
-//     1  3 5  7
-//   */
-//   auto root = newNode(1);
-//   for(int i = 1; i < 7; ++i){
-//     root = insert(root, i);
-//   }
+TEST(AVLNode, insert1to7) {
+  /* Should looks like
+        4
+      2   6
+    1  3 5  7
+  */
+  auto root = newNode(1);
+  for(int i = 1; i < 8; ++i){
+    root = insert(root, i);
+  }
   
-//   EXPECT_NE(root, nullptr);
-//   EXPECT_NE(root->left, nullptr);
-//   EXPECT_NE(root->right, nullptr);
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
 
-//   EXPECT_NE(root->left->left, nullptr);
-//   EXPECT_NE(root->left->right, nullptr);
-//   EXPECT_NE(root->right->left, nullptr);
-//   EXPECT_NE(root->right->right, nullptr);
+  EXPECT_NE(root->left->left, nullptr);
+  EXPECT_NE(root->left->right, nullptr);
+  EXPECT_NE(root->right->left, nullptr);
+  EXPECT_NE(root->right->right, nullptr);
 
-//   deleteNode(root);
-// }
+  deleteNode(root);
+}
