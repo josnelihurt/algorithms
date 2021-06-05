@@ -69,8 +69,9 @@ node* insert(node* root, int val){
     //check if a rotation is needed
     if(bf == -2 && getBalanceFactor(root->right) == -1){
       return LLRotate(root);
+    } else if(bf == 2 && getBalanceFactor(root->left) == 1){
+      return RRRotate(root);
     }
-    // } else if(bf == 2 && getBalanceFactor(root->left) == -1){
     //   return RLRotate(root);
     // } else if(bf == -2 && getBalanceFactor(root->right) == -1){
     //   return LLRotate(root);

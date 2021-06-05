@@ -357,5 +357,47 @@ TEST(AVLNode, insert1to7) {
   EXPECT_NE(root->right->left, nullptr);
   EXPECT_NE(root->right->right, nullptr);
 
+  EXPECT_EQ(root->val, 4);
+  EXPECT_EQ(root->left->val, 2);
+  EXPECT_EQ(root->right->val, 6);
+  
+  EXPECT_EQ(root->left->left->val, 1);
+  EXPECT_EQ(root->left->right->val, 3);
+  EXPECT_EQ(root->right->left->val, 5);
+  EXPECT_EQ(root->right->right->val, 7);
+
+  deleteNode(root);
+}
+
+
+TEST(AVLNode, insert7to1) {
+  /* Should looks like
+        4
+      2   6
+    1  3 5  7
+  */
+  auto root = newNode(7);
+  for(int i = 7; i > 0; --i){
+    root = insert(root, i);
+  }
+  
+  EXPECT_NE(root, nullptr);
+  EXPECT_NE(root->left, nullptr);
+  EXPECT_NE(root->right, nullptr);
+
+  EXPECT_NE(root->left->left, nullptr);
+  EXPECT_NE(root->left->right, nullptr);
+  EXPECT_NE(root->right->left, nullptr);
+  EXPECT_NE(root->right->right, nullptr);
+
+  EXPECT_EQ(root->val, 4);
+  EXPECT_EQ(root->left->val, 2);
+  EXPECT_EQ(root->right->val, 6);
+  
+  EXPECT_EQ(root->left->left->val, 1);
+  EXPECT_EQ(root->left->right->val, 3);
+  EXPECT_EQ(root->right->left->val, 5);
+  EXPECT_EQ(root->right->right->val, 7);
+
   deleteNode(root);
 }
