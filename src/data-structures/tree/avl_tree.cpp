@@ -29,7 +29,7 @@ void deleteNode(node *root){
 
 int getHeight(node *root){
     if(root == nullptr){
-        return 0;
+        return -1;
     }
     if(root->left == nullptr && root->right == nullptr){
         return 0;
@@ -37,6 +37,12 @@ int getHeight(node *root){
     auto lht = getHeight(root->left);
     auto rht = getHeight(root->right);
     return 1 + max(lht, rht);
+}
+
+int getBalanceFactor(node* root){
+  auto lht = getHeight(root->left);
+  auto rht = getHeight(root->right);
+  return lht - rht;
 }
 
 node* insert(node* root, int val){
@@ -77,8 +83,8 @@ node* RRRotate(node* root){
           yr◄──┘
   */
   auto x = root;
-  auto y = root->left;
-  auto yr = root->left->right;
+  auto y = x->left;
+  auto yr = y->right;
   root = y;
   root->right = x;
   x->left = yr;
@@ -109,9 +115,9 @@ node* RLRotate(node* root){
   auto z = root->left->right;
   root = z;
   root->right = x;
-  root->right->left = nullptr;
+  x->left = nullptr;
   root->left = y;
-  root->left->right = nullptr;
+  y->right = nullptr;
   root->ht = getHeight(root);
   return root;
 }
@@ -134,7 +140,7 @@ node* LLRotate(node* root){
   */
   auto x = root;
   auto y = root->right;
-  auto yl = root->right->left;
+  auto yl = y->left;
   root = y;
   root->left = x;
   x->right = yl;

@@ -16,6 +16,8 @@ int getHeight(node *root);
 //deleteNode removes all nodes from the tree
 void deleteNode(node *root);
 
+int getBalanceFactor(node* root);
+
 node* RRRotate(node* root);
 node* LLRotate(node* root);
 node* RLRotate(node* root);

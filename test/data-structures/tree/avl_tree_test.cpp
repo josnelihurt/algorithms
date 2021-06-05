@@ -33,7 +33,7 @@ TEST(AVLNode, newNode) {
   deleteNode(root);
 }
 
-// I wonder how to properly test this case,
+// I wonder how can I properly test this case,
 // a callback umm maybe later I can test it
 // TEST(AVLNode, deleteNode) {
 //   auto value = getValue();
@@ -113,7 +113,7 @@ TEST(AVLNode, insert21) {
 
 TEST(AVLNode, getHeightNullTree) {
   auto ht = getHeight(nullptr);
-  EXPECT_EQ(ht, 0);
+  EXPECT_EQ(ht, -1);
 }
 
 TEST(AVLNode, getHeightSingleNodeTree) {
@@ -184,6 +184,9 @@ TEST(AVLNode, getHeightNodeTree) {
 }
 
 TEST(AVLNode, RRRotate) {
+  auto shouldBeNull = RRRotate(nullptr);
+  EXPECT_EQ(shouldBeNull, nullptr);
+
   auto value = getValue();
   auto x = newNode(100);
   auto y = newNode(10);
@@ -215,9 +218,13 @@ TEST(AVLNode, RRRotate) {
   EXPECT_EQ(root->ht, 1);
   EXPECT_EQ(root->left->ht, 0);
   EXPECT_EQ(root->right->ht, 0);
+  deleteNode(root);
 }
 
 TEST(AVLNode, LLRotate) {
+  auto shouldBeNull = LLRotate(nullptr);
+  EXPECT_EQ(shouldBeNull, nullptr);
+
   auto value = getValue();
   auto x = newNode(1);
   auto y = newNode(10);
@@ -250,9 +257,14 @@ TEST(AVLNode, LLRotate) {
   EXPECT_EQ(root->ht, 1);
   EXPECT_EQ(root->left->ht, 0);
   EXPECT_EQ(root->right->ht, 0);
+
+  deleteNode(root);
 }
 
 TEST(AVLNode, RLRotate) {
+  auto shouldBeNull = RLRotate(nullptr);
+  EXPECT_EQ(shouldBeNull, nullptr);
+
   auto value = getValue();
   auto x = newNode(10);
   auto y = newNode(1);
@@ -284,9 +296,14 @@ TEST(AVLNode, RLRotate) {
   EXPECT_EQ(root->ht, 1);
   EXPECT_EQ(root->left->ht, 0);
   EXPECT_EQ(root->right->ht, 0);
+
+  deleteNode(root);
 }
 
 TEST(AVLNode, LRRotate) {
+  auto shouldBeNull = LRRotate(nullptr);
+  EXPECT_EQ(shouldBeNull, nullptr);
+
   auto value = getValue();
   auto x = newNode(1);
   auto y = newNode(10);
@@ -317,4 +334,45 @@ TEST(AVLNode, LRRotate) {
   EXPECT_EQ(root->ht, 1);
   EXPECT_EQ(root->left->ht, 0);
   EXPECT_EQ(root->right->ht, 0);
+
+  deleteNode(root);
 }
+
+TEST(AVLNode, getBalanceFactor) {
+  auto root = insert(nullptr, 2);
+  auto bf = getBalanceFactor(root);
+  EXPECT_EQ(bf, 0);
+  root = insert(root, 1);
+  bf = getBalanceFactor(root);
+  EXPECT_EQ(bf, 1);
+  root = insert(root, 3);
+  bf = getBalanceFactor(root);
+  EXPECT_EQ(bf, 0);
+
+  root = insert(root, 10);
+  bf = getBalanceFactor(root);
+  EXPECT_EQ(bf, -1);
+}
+
+// TEST(AVLNode, insert1to7) {
+//   /* Should looks like
+//         4
+//       2   6
+//     1  3 5  7
+//   */
+//   auto root = newNode(1);
+//   for(int i = 1; i < 7; ++i){
+//     root = insert(root, i);
+//   }
+  
+//   EXPECT_NE(root, nullptr);
+//   EXPECT_NE(root->left, nullptr);
+//   EXPECT_NE(root->right, nullptr);
+
+//   EXPECT_NE(root->left->left, nullptr);
+//   EXPECT_NE(root->left->right, nullptr);
+//   EXPECT_NE(root->right->left, nullptr);
+//   EXPECT_NE(root->right->right, nullptr);
+
+//   deleteNode(root);
+// }
