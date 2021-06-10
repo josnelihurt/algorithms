@@ -77,7 +77,7 @@ func TestInsertBSTNode(t *testing.T) {
 	}
 }
 
-func TestPrintingBSTNode(t *testing.T) {
+func TestInsertBSTNodeComplex(t *testing.T) {
 	var root *BSTNode
 	root = Insert(root, 50)
 	root = Insert(root, 40)
@@ -89,4 +89,18 @@ func TestPrintingBSTNode(t *testing.T) {
 	root = Insert(root, 59)
 	root = Insert(root, 61)
 	tree.Print(root)
+
+	assert.Equal(t, &BSTNode{
+		key: 50,
+		left: &BSTNode{
+			key:   40,
+			left:  NewBSTNode(39),
+			right: NewBSTNode(41),
+		},
+		right: &BSTNode{
+			key:   60,
+			left:  NewBSTNode(59),
+			right: NewBSTNode(61),
+		},
+	}, root)
 }
