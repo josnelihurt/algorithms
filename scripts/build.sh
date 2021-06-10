@@ -9,3 +9,6 @@ mkdir -p /source/build && \
 cd /source/build && \
 cmake ../ -DCMAKE_BUILD_TYPE=Debug && \
 make -j4 $arg
+cd /source/go-src/
+go mod vendor
+go build ./...

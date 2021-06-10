@@ -9,7 +9,8 @@ RUN apt-get update \
 
 # install application dependencies
 RUN apt-get install -y libopenblas-dev liblapack-dev python3-dev \ 
-    libncurses5-dev libncursesw5-dev libasio-dev libboost-all-dev
+    libncurses5-dev libncursesw5-dev libasio-dev libboost-all-dev \
+    wget curl 
 
 # configure SSH for communication with Visual Studio 
 RUN mkdir -p /var/run/sshd
@@ -17,6 +18,14 @@ RUN mkdir -p /var/run/sshd
 RUN echo 'root:root' | chpasswd \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+
+WORKDIR /tmp
+RUN wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz
+RUN ls /usr/local/go
+ENV PATH "$PATH:/usr/local/go/bin"
+RUN go version
 
 
 RUN mkdir -p /source
