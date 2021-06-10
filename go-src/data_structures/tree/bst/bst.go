@@ -1,9 +1,26 @@
 package bst
 
+import "github.com/shivamMg/ppds/tree"
+
 type BSTNode struct {
 	key   int
 	left  *BSTNode
 	right *BSTNode
+}
+
+func (n *BSTNode) Data() interface{} {
+	return n.key
+}
+
+func (n *BSTNode) Children() []tree.Node {
+	result := []tree.Node{}
+	if n.left != nil {
+		result = append(result, n.left)
+	}
+	if n.right != nil {
+		result = append(result, n.right)
+	}
+	return result
 }
 
 func NewBSTNode(k int) *BSTNode {

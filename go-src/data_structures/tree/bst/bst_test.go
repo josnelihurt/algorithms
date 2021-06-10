@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"testing"
 
+	"github.com/shivamMg/ppds/tree"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,8 +18,7 @@ func TestNewBSTNode(t *testing.T) {
 }
 
 func TestInsertBSTNode(t *testing.T) {
-
-	aRandomNumber := rand.Int()
+	aRandomNumber := 10
 	tcs := []struct {
 		name         string
 		root         *BSTNode
@@ -75,4 +75,18 @@ func TestInsertBSTNode(t *testing.T) {
 
 		})
 	}
+}
+
+func TestPrintingBSTNode(t *testing.T) {
+	var root *BSTNode
+	root = Insert(root, 50)
+	root = Insert(root, 40)
+	root = Insert(root, 60)
+
+	root = Insert(root, 39)
+	root = Insert(root, 41)
+
+	root = Insert(root, 59)
+	root = Insert(root, 61)
+	tree.Print(root)
 }
