@@ -10,5 +10,5 @@ cd /source/build && \
 cmake ../ -DCMAKE_BUILD_TYPE=Debug && \
 make -j4 $arg
 cd /source/go-src/
-go mod vendor
-go build ./...
+/usr/local/go/bin/go mod vendor
+/usr/local/go/bin/go build ./...

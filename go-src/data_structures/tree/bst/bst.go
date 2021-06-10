@@ -47,3 +47,15 @@ func Insert(root *BSTNode, key int) *BSTNode {
 	// equal case
 	return root
 }
+
+// func
+
+// func Remove(root *BSTNode, key int) *BSTNode {
+// 	if root == nil {
+// 		return nil
+// 	}
+
+// 	if
+
+// 	return root
+// }

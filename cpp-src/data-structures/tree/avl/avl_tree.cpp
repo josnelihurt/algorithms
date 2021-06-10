@@ -1,4 +1,5 @@
 #include "avl_tree.h"
+namespace avl{
 /*
 https://www.hackerrank.com/challenges/self-balancing-tree/problem
 */
@@ -153,3 +154,6 @@ node* LRRotate(node* root){
   y->ht = getHeight(y);
   return root;
 }
+
+
+};

@@ -1,14 +1,11 @@
 #include "gtest/gtest.h"
 #include "avl_tree.h"
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <tools/functions.h>
 
-int getValue(){
-  srand (time(NULL));
-  auto value = rand() + 1;
-  return value;
-}
+using namespace avl;
 
-TEST(UtilsFunctions, max) {
+TEST(UtilsFunctions, max) { 
   auto zValue = 0;
   auto nValue = -1;
   auto pValue = 1;
@@ -24,7 +21,7 @@ TEST(UtilsFunctions, max) {
 
 
 TEST(AVLNode, newNode) {
-  auto value = getValue();
+  auto value = getRandomValue();
   auto root = newNode(value);
   EXPECT_EQ(root->ht, 0);
   EXPECT_EQ(root->val, value);
@@ -36,7 +33,7 @@ TEST(AVLNode, newNode) {
 // I wonder how can I properly test this case,
 // a callback umm maybe later I can test it
 // TEST(AVLNode, deleteNode) {
-//   auto value = getValue();
+//   auto value = getRandomValue();
 //   auto root = newNode(value++);
 //   auto l = newNode(value++);
 //   auto r = newNode(value++);
@@ -63,7 +60,7 @@ TEST(AVLNode, newNode) {
 // }
 
 TEST(AVLNode, insertNullInput) {
-  auto value = getValue();
+  auto value = getRandomValue();
   auto root = insert(nullptr, value);
   EXPECT_EQ(root->ht, 0);
   EXPECT_EQ(root->val, value);
@@ -73,7 +70,7 @@ TEST(AVLNode, insertNullInput) {
 }
 
 TEST(AVLNode, insertTwiceSameValue) {
-  auto value = getValue();
+  auto value = getRandomValue();
   auto root = insert(nullptr, value);
   root = insert(root, value);
   EXPECT_EQ(root->ht, 0);
@@ -124,7 +121,7 @@ TEST(AVLNode, getHeightSingleNodeTree) {
 }
 
 TEST(AVLNode, getHeightNodeTree) {
-  auto value = getValue();
+  auto value = getRandomValue();
   auto root = insert(nullptr, 2);
   root = insert(root, 1);
   auto ht = getHeight(root);
@@ -168,7 +165,7 @@ TEST(AVLNode, RRRotate) {
   auto shouldBeNull = RRRotate(nullptr);
   EXPECT_EQ(shouldBeNull, nullptr);
 
-  auto value = getValue();
+  auto value = getRandomValue();
   auto x = newNode(100);
   auto xr = newNode(101);
   auto y = newNode(10);
@@ -216,7 +213,7 @@ TEST(AVLNode, LLRotate) {
   auto shouldBeNull = LLRotate(nullptr);
   EXPECT_EQ(shouldBeNull, nullptr);
 
-  auto value = getValue();
+  auto value = getRandomValue();
   auto x = newNode(1);
   auto xl = newNode(0);
   auto y = newNode(10);
@@ -261,7 +258,7 @@ TEST(AVLNode, RLRotate) {
   auto shouldBeNull = RLRotate(nullptr);
   EXPECT_EQ(shouldBeNull, nullptr);
 
-  auto value = getValue();
+  auto value = getRandomValue();
   auto x = newNode(10);
   auto xr = newNode(11);
   auto y = newNode(1);
@@ -309,7 +306,7 @@ TEST(AVLNode, LRRotate) {
   auto shouldBeNull = LRRotate(nullptr);
   EXPECT_EQ(shouldBeNull, nullptr);
 
-  auto value = getValue();
+  auto value = getRandomValue();
   auto x = newNode(1);
   auto xl = newNode(0);
   auto y = newNode(10);

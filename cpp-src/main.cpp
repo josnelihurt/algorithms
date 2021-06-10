@@ -4,11 +4,11 @@
 #include <sstream>
 #include <algorithm>
 #include <random>
-
 using std::vector;
 using std::string;
 using std::cout;
 
+namespace utils{
 template <typename T>
 class BinTree {
     struct Node {
@@ -274,8 +274,9 @@ public:
         }
     }
 };
+}
 int main() {
-    BinTree<int> bt;
+    utils::BinTree<int> bt;
 
     // Build OP's tree
     bt.insert(8,5,2,6,10,9,11);
