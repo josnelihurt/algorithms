@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "data-structures/tree/avl_tree.h"
+#include "avl_tree.h"
 #include <stdlib.h> 
 
 int getValue(){

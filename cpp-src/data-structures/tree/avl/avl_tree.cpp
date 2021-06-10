@@ -1,4 +1,4 @@
-#include "data-structures/tree/avl_tree.h"
+#include "avl_tree.h"
 /*
 https://www.hackerrank.com/challenges/self-balancing-tree/problem
 */
