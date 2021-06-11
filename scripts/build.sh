@@ -28,3 +28,10 @@ then
   cargo test -v
 fi
 echo "done with rust build"
+
+cd /source/java-src/
+if [[ "$arg" == "runUnitTest" ]]
+then
+  ./run.sh
+fi
+echo "done with java build"
