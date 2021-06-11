@@ -23,14 +23,19 @@ RUN echo 'root:root' | chpasswd \
 WORKDIR /tmp
 ADD https://golang.org/dl/go1.16.5.linux-amd64.tar.gz /tmp/go1.16.5.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz
-RUN ls /usr/local/go
 ENV PATH "$PATH:/usr/local/go/bin"
 RUN go version
 ADD https://sh.rustup.rs /tmp/rustup.sh
-RUN chmod +x /tmp/rustup.sh
-RUN /tmp/rustup.sh -y
+RUN chmod +x /tmp/rustup.sh && /tmp/rustup.sh -y
 ENV PATH "$PATH:/root/.cargo/bin"
 
+RUN apt-get -y install apt-transport-https 
+ADD https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb && \
+    apt-get update && \
+    apt-get install -y dotnet-sdk-3.1 
+
+RUN apt-get install -y npm
 
 RUN mkdir -p /source
 WORKDIR /source
