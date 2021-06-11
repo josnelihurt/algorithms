@@ -9,8 +9,8 @@ RUN apt-get update \
 
 # install application dependencies
 RUN apt-get install -y libopenblas-dev liblapack-dev python3-dev \ 
-    libncurses5-dev libncursesw5-dev libasio-dev libboost-all-dev \
-    wget curl 
+    libncurses5-dev libncursesw5-dev libasio-dev libboost-all-dev
+RUN apt-get install -y wget curl npm default-jdk
 
 # configure SSH for communication with Visual Studio 
 RUN mkdir -p /var/run/sshd
@@ -35,7 +35,9 @@ RUN dpkg -i packages-microsoft-prod.deb && \
     apt-get update && \
     apt-get install -y dotnet-sdk-3.1 
 
-RUN apt-get install -y npm
+ADD https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /tmp/apache-maven-3.6.3-bin.tar.gz
+RUN tar xf /tmp/apache-maven-*.tar.gz -C /opt && ln -s /opt/apache-maven-3.6.3 /opt/maven
+
 
 RUN mkdir -p /source
 WORKDIR /source
