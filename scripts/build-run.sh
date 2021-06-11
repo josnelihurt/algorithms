@@ -10,3 +10,7 @@ echo "**************************************************************************
 echo "running go version of the testing"
 cd /source/go-src/
 ./run.sh
+echo "********************************************************************************"
+echo "running rust version of the testing"
+cd /source/rust-src/
+./run.sh

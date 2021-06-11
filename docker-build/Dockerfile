@@ -21,11 +21,15 @@ RUN echo 'root:root' | chpasswd \
 
 
 WORKDIR /tmp
-RUN wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+ADD https://golang.org/dl/go1.16.5.linux-amd64.tar.gz /tmp/go1.16.5.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz
 RUN ls /usr/local/go
 ENV PATH "$PATH:/usr/local/go/bin"
 RUN go version
+ADD https://sh.rustup.rs /tmp/rustup.sh
+RUN chmod +x /tmp/rustup.sh
+RUN /tmp/rustup.sh -y
+ENV PATH "$PATH:/root/.cargo/bin"
 
 
 RUN mkdir -p /source
