@@ -14,3 +14,11 @@ echo "**************************************************************************
 echo "running rust version of the testing"
 cd /source/rust-src/
 ./run.sh
+echo "********************************************************************************"
+echo "running java version of the testing"
+cd /source/java-src/
+./run.sh
+echo "********************************************************************************"
+echo "running node version of the testing"
+cd /source/node-src/
+./run.sh

@@ -1,0 +1,14 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "This a project to test algorithms using node",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "josnelihurt",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^9.0.0"
+  }
+}
