@@ -21,7 +21,8 @@ RUN echo 'root:root' | chpasswd \
 
 
 WORKDIR /tmp
-ADD https://golang.org/dl/go1.16.5.linux-amd64.tar.gz /tmp/go1.16.5.linux-amd64.tar.gz
+RUN wget https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+# ADD dependencies/go1.16.5.linux-amd64.tar.gz /tmp/go1.16.5.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.16.5.linux-amd64.tar.gz
 ENV PATH "$PATH:/usr/local/go/bin"
 RUN go version
@@ -30,12 +31,14 @@ RUN chmod +x /tmp/rustup.sh && /tmp/rustup.sh -y
 ENV PATH "$PATH:/root/.cargo/bin"
 
 RUN apt-get -y install apt-transport-https 
-ADD https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb packages-microsoft-prod.deb
+RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb
+#ADD dependencies/packages-microsoft-prod.deb packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb && \
     apt-get update && \
     apt-get install -y dotnet-sdk-3.1 
 
-ADD https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /tmp/apache-maven-3.6.3-bin.tar.gz
+RUN wget https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+#ADD dependencies/apache-maven-3.6.3-bin.tar.gz /tmp/apache-maven-3.6.3-bin.tar.gz
 RUN tar xf /tmp/apache-maven-*.tar.gz -C /opt && ln -s /opt/apache-maven-3.6.3 /opt/maven
 
 RUN apt-get install -y nodejs npm
