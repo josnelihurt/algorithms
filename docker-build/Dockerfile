@@ -43,7 +43,7 @@ RUN tar xf /tmp/apache-maven-*.tar.gz -C /opt && ln -s /opt/apache-maven-3.6.3 /
 
 RUN apt-get install -y nodejs npm
 
-RUN mkdir -p /source
+RUN mkdir -p /source/build
 WORKDIR /source
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
