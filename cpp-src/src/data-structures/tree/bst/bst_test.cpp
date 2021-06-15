@@ -199,30 +199,73 @@ Node* makeTestTree(){
         24,26,74,76,124,126,174,176
     };
     Node* root = nullptr;
-    for(int i = 0; i < sizeof(values); ++i){
+    for (int i = 0; i < sizeof(values)/sizeof(values[0]); ++i){
         root = insert(root, values[i]);
     }
-    
+
+    EXPECT_EQ(root->data, 100);
+
+    EXPECT_EQ(root->left->data, 50);
+    EXPECT_EQ(root->right->data, 150);
+
+    EXPECT_EQ(root->left->left->data, 25);
+    EXPECT_EQ(root->left->right->data, 75);
+    EXPECT_EQ(root->right->left->data, 125);
+    EXPECT_EQ(root->right->right->data, 175);
+
+    EXPECT_EQ(root->left->left->left->data, 24);
+    EXPECT_EQ(root->left->left->right->data, 26);
+    EXPECT_EQ(root->left->right->left->data, 74);
+    EXPECT_EQ(root->left->right->right->data, 76);
+    EXPECT_EQ(root->right->left->left->data, 124);
+    EXPECT_EQ(root->right->left->right->data, 126);
+    EXPECT_EQ(root->right->right->left->data, 174);
+    EXPECT_EQ(root->right->right->right->data, 176);
+
+    EXPECT_EQ(root->left->left->left->left, nullptr);
+    EXPECT_EQ(root->left->left->left->right, nullptr);
+    EXPECT_EQ(root->left->left->right->left, nullptr);
+    EXPECT_EQ(root->left->left->right->right, nullptr);
+    EXPECT_EQ(root->left->right->left->left, nullptr);
+    EXPECT_EQ(root->left->right->left->right, nullptr);
+    EXPECT_EQ(root->left->right->right->left, nullptr);
+    EXPECT_EQ(root->left->right->right->right, nullptr);
+    EXPECT_EQ(root->right->left->left->left, nullptr);
+    EXPECT_EQ(root->right->left->left->right, nullptr);
+    EXPECT_EQ(root->right->left->right->left, nullptr);
+    EXPECT_EQ(root->right->left->right->right, nullptr);
+    EXPECT_EQ(root->right->right->left->left, nullptr);
+    EXPECT_EQ(root->right->right->left->right, nullptr);
+    EXPECT_EQ(root->right->right->right->left, nullptr);
+    EXPECT_EQ(root->right->right->right->right, nullptr);
+
     auto ht = height(root);
     EXPECT_EQ(ht, 3);
     return root;
 }
-// TEST(BST, lcaLevel2){
-//     auto root = makeTestTree();
-//     auto ht = height(root);
-//     EXPECT_EQ(ht, 2);    
-//     auto lcaNode = lca(root, 4, 16);
-//     EXPECT_NE(root, nullptr);
-//     EXPECT_NE(lcaNode, nullptr);
-//     EXPECT_EQ(root, lcaNode);  
-//     deleteNode(root);
-// }
-TEST(BST, lcaSameValue){
+TEST(BST, lcaLevel2){
     auto root = makeTestTree();
-    auto lcaNode = lca(root, 24, 24);
+    auto lcaNode = lca(root, 50, 150);
     EXPECT_NE(root, nullptr);
     EXPECT_NE(lcaNode, nullptr);
-    EXPECT_EQ(root, lcaNode);  
+    EXPECT_EQ(root, lcaNode);
+    deleteNode(root);
+}
+TEST(BST, lcaLevelSameParent)
+{
+    auto root = makeTestTree();
+    auto lcaNode = lca(root, 24, 26);
+    EXPECT_NE(root, nullptr);
+    EXPECT_NE(lcaNode, nullptr);
+    EXPECT_EQ(lcaNode->data, 25);
+    deleteNode(root);
+}
+TEST(BST, lcaLevelParent150){
+    auto root = makeTestTree();
+    auto lcaNode = lca(root, 125, 176);
+    EXPECT_NE(root, nullptr);
+    EXPECT_NE(lcaNode, nullptr);
+    EXPECT_EQ(lcaNode->data, 150);
     deleteNode(root);
 }
 }
