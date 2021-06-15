@@ -1,5 +1,5 @@
 # algorithms
-This is a simple repository to include various tests over different data structures and algorithms for learning purposes. This repository uses a dockerized environment that allows us to have a portable environment. The repository can be used from vscode to develop and debug the code.
+This is a simple repository to include various tests over different data structures and algorithms for learning purposes. This repository uses a dockerized environment that allows us to have a portable environment. This repository can be used from vscode to develop and debug the code.
 
 ## build
 To build, just run `./run.sh`

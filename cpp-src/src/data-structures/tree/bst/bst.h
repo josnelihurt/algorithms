@@ -6,4 +6,5 @@ namespace bst{
     };
 
     Node* newNode(int data);
+    Node *insert(Node *root, int data);
 }
