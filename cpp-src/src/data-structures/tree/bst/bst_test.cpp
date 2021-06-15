@@ -174,13 +174,52 @@ TEST(BST, lcaBase){
     EXPECT_EQ(root, nullptr);  
     deleteNode(root);
 }
-TEST(BST, lcaSameValue){
+TEST(BST, lcaLevel1){
     auto k = getRandomValue();
     auto root = insert(nullptr, k);
-    for(int i = 0; i < 100; ++i){
-        root = insert(root, ++k);
+    root = insert(root, k+1);
+    root = insert(root, k-1);
+    auto lcaNode = lca(root, k-1, k+1);
+    EXPECT_NE(root, nullptr);
+    EXPECT_NE(lcaNode, nullptr);
+    EXPECT_EQ(root, lcaNode);  
+    deleteNode(root);
+}
+Node* makeTestTree(){
+    /*
+                        100
+                50               150        
+           25      75       125      175
+        24    26  74 76   124 126 174  176
+    */
+   int values[] = {
+        100,
+        50,150,
+        25,75,125,175,
+        24,26,74,76,124,126,174,176
+    };
+    Node* root = nullptr;
+    for(int i = 0; i < sizeof(values); ++i){
+        root = insert(root, values[i]);
     }
-    auto lcaNode = lca(root, k, k);
+    
+    auto ht = height(root);
+    EXPECT_EQ(ht, 3);
+    return root;
+}
+// TEST(BST, lcaLevel2){
+//     auto root = makeTestTree();
+//     auto ht = height(root);
+//     EXPECT_EQ(ht, 2);    
+//     auto lcaNode = lca(root, 4, 16);
+//     EXPECT_NE(root, nullptr);
+//     EXPECT_NE(lcaNode, nullptr);
+//     EXPECT_EQ(root, lcaNode);  
+//     deleteNode(root);
+// }
+TEST(BST, lcaSameValue){
+    auto root = makeTestTree();
+    auto lcaNode = lca(root, 24, 24);
     EXPECT_NE(root, nullptr);
     EXPECT_NE(lcaNode, nullptr);
     EXPECT_EQ(root, lcaNode);  
