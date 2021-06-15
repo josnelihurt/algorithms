@@ -2,23 +2,26 @@
 #include "gtest/gtest.h"
 #include "tools/functions.h"
 using namespace bst;
-
+namespace newNode_cases{
 TEST(BST, newNode){
     auto k = getRandomValue();
     auto root = newNode(k);
     EXPECT_NE(root, nullptr);
     EXPECT_EQ(root->data, k);
     EXPECT_EQ(root->left, nullptr);
-    EXPECT_EQ(root->right, nullptr);
+    EXPECT_EQ(root->right, nullptr);  
+    deleteNode(root);
 }
-
+}
+namespace insert_cases{
 TEST(BST, insertNullRoot){
     auto k = getRandomValue();
     auto root = insert(nullptr, k);
     EXPECT_NE(root, nullptr);
     EXPECT_EQ(root->data, k);
     EXPECT_EQ(root->left, nullptr);
-    EXPECT_EQ(root->right, nullptr);
+    EXPECT_EQ(root->right, nullptr);  
+    deleteNode(root);
 }
 
 TEST(BST, insertSameData){
@@ -29,7 +32,8 @@ TEST(BST, insertSameData){
     EXPECT_EQ(root->data, k);
     EXPECT_EQ(root->left, nullptr);
     EXPECT_EQ(root->right, nullptr);
-    EXPECT_EQ(root, sameRoot);
+    EXPECT_EQ(root, sameRoot);  
+    deleteNode(root);
 }
 
 TEST(BST, insertRight){
@@ -41,7 +45,8 @@ TEST(BST, insertRight){
     EXPECT_EQ(root->right->data, k);
     EXPECT_EQ(root->right->left, nullptr);
     EXPECT_EQ(root->right->right, nullptr);
-    EXPECT_EQ(root->left, nullptr);
+    EXPECT_EQ(root->left, nullptr);  
+    deleteNode(root);
 }
 
 TEST(BST, insertRightSameValue){
@@ -54,7 +59,8 @@ TEST(BST, insertRightSameValue){
     EXPECT_EQ(root->right->data, k);
     EXPECT_EQ(root->right->left, nullptr);
     EXPECT_EQ(root->right->right, nullptr);
-    EXPECT_EQ(root->left, nullptr);
+    EXPECT_EQ(root->left, nullptr);  
+    deleteNode(root);
 }
 
 TEST(BST, insertLeft){
@@ -66,7 +72,8 @@ TEST(BST, insertLeft){
     EXPECT_NE(root->left, root);
     EXPECT_EQ(root->left->left, nullptr);
     EXPECT_EQ(root->left->right, nullptr);
-    EXPECT_EQ(root->right, nullptr);
+    EXPECT_EQ(root->right, nullptr);  
+    deleteNode(root);
 }
 
 TEST(BST, insertLeftSameValue){
@@ -79,7 +86,8 @@ TEST(BST, insertLeftSameValue){
     EXPECT_NE(root->left, root);
     EXPECT_EQ(root->left->left, nullptr);
     EXPECT_EQ(root->left->right, nullptr);
-    EXPECT_EQ(root->right, nullptr);
+    EXPECT_EQ(root->right, nullptr);  
+    deleteNode(root);
 }
 
 TEST(BST, insertLeftRight){
@@ -97,7 +105,8 @@ TEST(BST, insertLeftRight){
     EXPECT_EQ(root->left->left, nullptr);
     EXPECT_EQ(root->left->right, nullptr);
     EXPECT_EQ(root->right->left, nullptr);
-    EXPECT_EQ(root->right->right, nullptr);   
+    EXPECT_EQ(root->right->right, nullptr);  
+    deleteNode(root);   
 }
 
 TEST(BST, insertRightLeft){
@@ -116,4 +125,66 @@ TEST(BST, insertRightLeft){
     EXPECT_EQ(root->left->right, nullptr);
     EXPECT_EQ(root->right->left, nullptr);
     EXPECT_EQ(root->right->right, nullptr);   
+    deleteNode(root);  
 }
+}
+namespace height_cases{
+TEST(BST, heightNull){
+    auto ht = height(nullptr);
+    EXPECT_EQ(ht, -1);  
+}
+TEST(BST, heightSingle){
+    auto k = getRandomValue();
+    auto root = insert(nullptr, k);
+    auto ht = height(root);
+    EXPECT_EQ(ht, 0);    
+    deleteNode(root);
+}
+TEST(BST, heightSingleLeft){
+    auto k = getRandomValue();
+    auto root = insert(nullptr, k);
+    root = insert(root, k-1);
+    auto ht = height(root);
+    EXPECT_EQ(ht, 1);    
+    deleteNode(root);
+}
+TEST(BST, heightSingleRight){
+    auto k = getRandomValue();
+    auto root = insert(nullptr, k);
+    root = insert(root, k+1);
+    auto ht = height(root);
+    EXPECT_EQ(ht, 1);    
+    deleteNode(root);
+}
+TEST(BST, height100inserts){
+    auto k = getRandomValue();
+    auto root = insert(nullptr, k);
+    for(int i = 0; i < 100; ++i){
+        root = insert(root, k + i);
+    }
+    auto ht = height(root);
+    EXPECT_EQ(ht, 99);  
+    deleteNode(root);
+}
+}
+namespace lca_cases{
+TEST(BST, lcaBase){
+    auto k = getRandomValue();
+    auto root = lca(nullptr, k, k);
+    EXPECT_EQ(root, nullptr);  
+    deleteNode(root);
+}
+TEST(BST, lcaSameValue){
+    auto k = getRandomValue();
+    auto root = insert(nullptr, k);
+    for(int i = 0; i < 100; ++i){
+        root = insert(root, ++k);
+    }
+    auto lcaNode = lca(root, k, k);
+    EXPECT_NE(root, nullptr);
+    EXPECT_NE(lcaNode, nullptr);
+    EXPECT_EQ(root, lcaNode);  
+    deleteNode(root);
+}
+}
+

@@ -8,6 +8,20 @@ Node* newNode(int data){
     return node;
 }
 
+void deleteNode(Node *root){
+    if(root == nullptr){
+        return;
+    }
+    if(root->right != nullptr){
+        deleteNode(root->right);
+    }
+    if(root->left != nullptr){
+        deleteNode(root->left);
+    }
+    delete root;
+    root = nullptr;
+}
+
 //https://www.hackerrank.com/challenges/binary-search-tree-insertion/problem
 Node *insert(Node *root, int data){
     if (root == nullptr){
@@ -34,11 +48,28 @@ Node *insert(Node *root, int data){
     return root;
 }
 
+//https://www.hackerrank.com/challenges/tree-height-of-a-binary-tree/problem
+int height(Node *root){
+    if (root == nullptr){
+        return -1;
+    }
+    int lDepth = height(root->left);
+    int rDepth = height(root->right);
+
+    /* use the larger one */
+    if (lDepth > rDepth)
+        return (lDepth + 1);
+    else
+        return (rDepth + 1);
+}
 
 //https://www.hackerrank.com/challenges/binary-search-tree-lowest-common-ancestor/problem
 Node *lca(Node *root, int v1,int v2) {
-    // Write your code here.
-    return nullptr;
+    if(root == nullptr){
+        return nullptr;
+    }
+
+    return root;
 }
 
 
