@@ -1,4 +1,5 @@
 #include "bst.h"
+#include <iostream>
 namespace bst{
 Node* newNode(int data){
     auto node = new Node();
@@ -80,5 +81,75 @@ Node *lca(Node *root, int v1,int v2) {
     return root;
 }
 
+//https://www.hackerrank.com/challenges/tree-inorder-traversal/problem
+void inOrder(Node *root){
+    Node *node = root;
+    if (root == nullptr){
+        return;
+    }
+    if (root->left != nullptr){
+        inOrder(root->left);
+    }
+    std::cout << node->data << " ";
+    if (root->right != nullptr){
+        inOrder(root->right);
+    }
+}
+//https://www.hackerrank.com/challenges/tree-level-order-traversal/problem
+void levelOrder(Node *root){
+    if (root == nullptr){
+        return;
+    }
+    Node *queue[501];
+    int front{0}, back{0};
+    queue[back++] = root;
 
+    while (back - front > 0)    {
+        //pop all elements in q
+        int lastBack = back;
+        for (; front < lastBack; front++)        {
+            std::cout << queue[front]->data << " ";
+            if (queue[front]->left)            {
+                queue[back++] = queue[front]->left;
+            }
+            if (queue[front]->right)            {
+                queue[back++] = queue[front]->right;
+            }
+        }
+    }
+}
+//https://www.hackerrank.com/challenges/tree-postorder-traversal/problem
+void postOrder(Node *root){
+    Node *node = root;
+    if (root == nullptr)
+    {
+        return;
+    }
+    if (root->left != nullptr)
+    {
+        postOrder(root->left);
+    }
+    if (root->right != nullptr)
+    {
+        postOrder(root->right);
+    }
+    std::cout << node->data << " ";
+}
+//https://www.hackerrank.com/challenges/tree-preorder-traversal/problem
+void preOrder(Node *root){
+    Node *node = root;
+    if (root == nullptr)
+    {
+        return;
+    }
+    std::cout << node->data << " ";
+    if (root->left != nullptr)
+    {
+        preOrder(root->left);
+    }
+    if (root->right != nullptr)
+    {
+        preOrder(root->right);
+    }
+}
 }
