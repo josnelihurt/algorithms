@@ -1,6 +1,3 @@
-JAVA_HOME=/usr/lib/jvm/default-java
-M2_HOME=/opt/maven
-MAVEN_HOME=/opt/maven
-PATH=${M2_HOME}/bin:${PATH}
-# mvn dependency:copy-dependencies -Dclassifier=sources
-mvn package
+#!/bin/bash
+DIRECTORY="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+docker run --rm --name java-src -v $DIRECTORY:/src -v $DIRECTORY/.m2:/root/.m2 -w /src maven:3.3-jdk-8 mvn clean install
