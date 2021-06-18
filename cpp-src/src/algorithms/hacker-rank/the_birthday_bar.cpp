@@ -15,11 +15,21 @@ using namespace std;
  */
 
 int birthday(vector<int> s, int d, int m) {
-    return 2;
+    if(s.size() == 0){
+        return 0;
+    }
+    if(s.size() == 1 && m == 1){
+        return s[0] == d;
+    }
+    auto endFor = s.end();
+    std::advance(endFor, -m+1);
     int result{};
-    // for(auto it = begin(s); it != s.rbegin()-m; it+=m){
-    //     result =  accumulate(it, it + m, 0);
-    // }
+    for (auto it = begin(s); it != endFor; ++it){
+        auto acc =  accumulate(it, it + m, 0);
+        if(acc == d){
+            result++;
+        }
+    }
     return result;
 }
 }
