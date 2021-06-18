@@ -18,11 +18,13 @@ set(SRC
     src/data-structures/tree/avl/avl_tree.cpp
     src/data-structures/tree/bst/bst.cpp
     src/algorithms/hacker-rank/between_two_sets.cpp
+    src/algorithms/hacker-rank/the_birthday_bar.cpp
 )
 set(TEST_SRC ${SCR}
   src/data-structures/tree/avl/avl_tree_test.cpp
   src/data-structures/tree/bst/bst_test.cpp
   src/algorithms/hacker-rank/between_two_sets_test.cpp
+  src/algorithms/hacker-rank/the_birthday_bar_test.cpp
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
