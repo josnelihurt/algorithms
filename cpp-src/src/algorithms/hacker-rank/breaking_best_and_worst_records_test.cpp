@@ -4,11 +4,20 @@
 using namespace breaking_best_and_worst_records;
 using namespace std;
 
+TEST(BBAWR, sampleTestCase1){
+    vector<int> s{3,4,21,36,10,28,35,5,24,42};
+    auto result = breakingRecords(s);
+    EXPECT_EQ(result.size(), 2);
+    EXPECT_EQ(result[0], 4);
+    EXPECT_EQ(result[1], 0);
+}
+
 TEST(BBAWR, sampleTestCase0){
-    vector<int> a{2, 6};
-    vector<int> b{24, 36};
-    auto result = breakingRecords(a, b);
-    EXPECT_EQ(result, 2);
+    vector<int> s{10,5,20,20,4,5,2,25,1};
+    auto result = breakingRecords(s);
+    EXPECT_EQ(result.size(), 2);
+    EXPECT_EQ(result[0], 2);
+    EXPECT_EQ(result[1], 4);
 }
 
 
