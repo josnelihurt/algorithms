@@ -1,0 +1,1 @@
+This folder contains a template for copying and pasting to set the repetitive task of creating a new test for a given problem

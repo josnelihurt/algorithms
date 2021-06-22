@@ -21,6 +21,7 @@ set(SRC
     src/algorithms/hacker-rank/implementation/the_birthday_bar.cpp
     src/algorithms/hacker-rank/implementation/breaking_best_and_worst_records.cpp
     src/algorithms/hacker-rank/implementation/divisible_sum_pairs.cpp
+    src/algorithms/hacker-rank/strings/camelcase.cpp
 )
 set(TEST_SRC ${SCR}
   src/data-structures/tree/avl/avl_tree_test.cpp
@@ -29,6 +30,7 @@ set(TEST_SRC ${SCR}
   src/algorithms/hacker-rank/implementation/the_birthday_bar_test.cpp
   src/algorithms/hacker-rank/implementation/breaking_best_and_worst_records_test.cpp
   src/algorithms/hacker-rank/implementation/divisible_sum_pairs_test.cpp
+  src/algorithms/hacker-rank/strings/camelcase_test.cpp
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
